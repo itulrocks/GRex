@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import { Component } from 'react';
-
+import CardList from './components/card-list/card-list';
+import SearchBox from './components/search-box/search-box';
 class App extends Component {
   constructor() {
     super();
@@ -27,16 +27,16 @@ class App extends Component {
         //   'X-RapidAPI-Host': 'movies-app1.p.rapidapi.com'
         // }
       }).then(response => response.json())
-      .then((movies) => {
-        this.setState(
-          ()=>{
-          return {
-            movies : movies
-          }
-          },
-          ()=>{
-          })
-      });
+        .then((movies) => {
+          this.setState(
+            () => {
+              return {
+                movies: movies
+              }
+            },
+            () => {
+            })
+        });
     } catch (error) {
       console.error(error);
     }
@@ -45,19 +45,12 @@ class App extends Component {
     const searchString = event.target.value.toLocaleLowerCase();
     this.setState({ searchString : searchString});
   };
-
   render(){
     const filteredMovies = this.state.movies.filter(movie => { return movie.name.toLocaleLowerCase().includes(this.state.searchString)});
     return (
-      <div className="main-div row">
-        <input className='search-box' placeholder='Search Users' onChange={this.onSearchChange}/>
-        {
-          filteredMovies.map((movie) => {
-            return (
-            <div key={movie.id} className="column">{movie.name}</div>
-            )
-          })
-        }
+      <div className="row">
+        <SearchBox onChangeHandler = {this.onSearchChange} placeHolderText = {'Search movies.'} />
+        <CardList cardslist={filteredMovies}/>
       </div>
     );
   }
