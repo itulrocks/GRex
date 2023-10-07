@@ -1,22 +1,18 @@
 import { Component } from "react";
 
-class CardList extends Component{
-    
-    render(){
-        const filteredMovies = this.props.cardslist;
-        return (
-            <div>
-                Hello I am the card list component.
-                {
-                    filteredMovies.map((movie) => {
-                        return (
-                            <div key={movie.id} className="column">{movie.name}</div>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
+const CardList = (props) => {
+    return (
+        <div>
+            Hello I am the card list component.
+            {
+                props.cardslist.map((card) => {
+                    return (
+                        <div key={card.id} className="column">{card.name}</div>
+                    )
+                })
+            }
+        </div>
+    );
 }
 
 export default CardList;
